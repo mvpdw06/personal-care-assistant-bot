@@ -29,3 +29,5 @@ getWeather(function(err, weather){
 	console.log('send weather', weather);
 	bot.sendMessage(myTelegramID, weather);
 })
+
+console.log('time now: ', new Date());
