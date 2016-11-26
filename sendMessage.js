@@ -1,6 +1,7 @@
 var TelegramBot = require('node-telegram-bot-api');
 var getHoroscope = require('./getHoroscope');
 var getWeather = require('./getWeather');
+var later = require('later');
 
 // get from Heroku config variable
 var token = process.env.token;
@@ -19,17 +20,21 @@ var bot = new TelegramBot(token, webhook);
 
 console.log('app start!');
 
-// bot send message every day morning.
-// getHoroscope(function(err, horoscope){
-// 	console.log('send Message:', horoscope);
-// 	bot.sendMessage(myTelegramID, horoscope);
-// });
+// bot send message every day 8:00 morning.
+later.date.timezone("Asia/Taipei");
+// var sched = later.parse.recur().on(8).hour();
+var sched = later.parse.recur().on('22:50:00').time();
 
-// getWeather(function(err, weather){
-// 	console.log('send weather', weather);
-// 	bot.sendMessage(myTelegramID, weather);
-// })
+var instance = later.setInterval(function() {
 
-setInterval(function(){
-	console.log('time now: ', new Date());	
-}, 10 * 1000)
+getHoroscope(function(err, horoscope){
+	console.log('send Message:', horoscope);
+	bot.sendMessage(myTelegramID, horoscope);
+});
+
+getWeather(function(err, weather){
+	console.log('send weather', weather);
+	bot.sendMessage(myTelegramID, weather);
+});
+
+}, sched);
