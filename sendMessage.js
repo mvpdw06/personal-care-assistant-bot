@@ -1,6 +1,6 @@
 var TelegramBot = require('node-telegram-bot-api');
 var getHoroscope = require('./getHoroscope');
-var getWeather = require('getWeather');
+var getWeather = require('./getWeather');
 
 // get from Heroku config variable
 var token = process.env.token;

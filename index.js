@@ -1,7 +1,7 @@
-var getHoroscpoe = require('./getHoroscpoe');
+var getHoroscope = require('./getHoroscope');
 var getWeather = require('./getWeather');
 
-getHoroscpoe(function(err, horoscpoe){
+getHoroscope(function(err, horoscpoe){
     console.log(horoscpoe);
 });
 
