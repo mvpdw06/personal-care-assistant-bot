@@ -45,11 +45,13 @@ Please see this [repository](https://github.com/mvpdw06/currency-bot) for detail
     $ heroku config:add TZ='ASIA/Taipei'
     ```
 
-    Next question is... **Can it work**?
+2. Next question is... **Can it work**?
+   
+   Unfortunately, this answer is **No**.
 
-    Unfortunately, the answer is **No**.
+   So we need to find another solution for running schedule and support timezone setting.
 
-    So we need to find another solution for running schedule and support timezone setting.
+3. What solution should we use?
 
     After investigation, we have two solution here.
 
