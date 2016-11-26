@@ -1,6 +1,7 @@
 var TelegramBot = require('node-telegram-bot-api');
 var getHoroscope = require('./getHoroscope');
 var getWeather = require('./getWeather');
+var moment = require('moment');
 var later = require('later');
 
 // get from Heroku config variable
@@ -22,19 +23,26 @@ console.log('app start!');
 
 // bot send message every day 8:00 morning.
 later.date.timezone("Asia/Taipei");
-// var sched = later.parse.recur().on(8).hour();
-var sched = later.parse.recur().on('22:50:00').time();
+var sched = later.parse.recur().on(8).hour();
+var todayInfo = {
+	nowDate: moment().format('YYYY-MM-DD'),
+	dayOfWeekEng: moment().format('dddd')
+}
 
 var instance = later.setInterval(function() {
 
-getHoroscope(function(err, horoscope){
-	console.log('send Message:', horoscope);
-	bot.sendMessage(myTelegramID, horoscope);
-});
+	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')');
 
-getWeather(function(err, weather){
-	console.log('send weather', weather);
-	bot.sendMessage(myTelegramID, weather);
-});
+	getHoroscope(function(err, horoscope){
+		console.log('send Message:', horoscope);
+		bot.sendMessage(myTelegramID, horoscope);
+	});
+
+	getWeather(function(err, weather){
+		console.log('send weather', weather);
+		bot.sendMessage(myTelegramID, weather);
+	});
+
+	bot.sendMessage(myTelegramID, '祝你有個美好的一天～');
 
 }, sched);

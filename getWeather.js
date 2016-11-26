@@ -3,9 +3,7 @@ var cheerio = require('cheerio');
 var moment = require('moment');
 
 function getWeather(callback){
-    var nowDate = moment().format('YYYY-MM-DD');
     var dayOfWeek = moment().format('E');
-    var dayOfWeekEng = moment().format('dddd');
     
     var url = 'http://www.cwb.gov.tw/V7/forecast/f_index.htm';
     request(url, function(err, res, body){
@@ -13,8 +11,9 @@ function getWeather(callback){
 
         var cityWeather,
             todayForecast;
+
         if(dayOfWeek >= 1 && dayOfWeek < 6){
-            // get Taipei city weather
+            // get Taipei city weather in workday.
             console.log('1');
             cityWeather = $('#TaipeiCityList').find('td');
 
@@ -25,7 +24,7 @@ function getWeather(callback){
             }
         }
         else{
-            // get new Taipei city weather
+            // get new Taipei city weather in weekend.
             cityWeather = $('#TaipeiList').find('td');
 
             todayForecast = {
@@ -35,7 +34,7 @@ function getWeather(callback){
             }
         }
 
-        var message = nowDate + '(' + dayOfWeekEng + ') 今日' + todayForecast.cityname + '氣象預測： 溫度預測：' +  todayForecast.temperature + ', 降雨機率：' + todayForecast.probability
+        var message = '今日' + todayForecast.cityname + '氣象預測： 溫度預測：' +  todayForecast.temperature + ', 降雨機率：' + todayForecast.probability
 
         callback(err, message);
     });

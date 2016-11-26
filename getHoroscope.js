@@ -4,7 +4,6 @@ var moment = require('moment');
 
 function getHoroscope(callback){
     var nowDate = moment().format('YYYY-MM-DD');
-    var dayOfWeekEng = moment().format('dddd');
     var myAstro = '4';
     var url = 'http://astro.click108.com.tw/daily_4.php?iAcDay=' + nowDate + '&iAstro=' + myAstro;
     request(url, function(err, res, body){
@@ -18,7 +17,7 @@ function getHoroscope(callback){
             todayDescription: $('.TODAY_WORD').text().trim()
         };
 
-        var message = nowDate + '(' + dayOfWeekEng + ') 獅子座今日幸運數字：' + todayHoroscope.luckyNumber + ', 幸運顏色：' + todayHoroscope.luckyNumber + ' ,總結：' + todayHoroscope.todayDescription;
+        var message = '獅子座今日幸運數字：' + todayHoroscope.luckyNumber + ', 幸運顏色：' + todayHoroscope.luckyColor + ' ,總結：' + todayHoroscope.todayDescription;
 
         callback(err, message);
     });
