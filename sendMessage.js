@@ -20,14 +20,16 @@ var bot = new TelegramBot(token, webhook);
 console.log('app start!');
 
 // bot send message every day morning.
-getHoroscope(function(err, horoscope){
-	console.log('send Message:', horoscope);
-	bot.sendMessage(myTelegramID, horoscope);
-});
+// getHoroscope(function(err, horoscope){
+// 	console.log('send Message:', horoscope);
+// 	bot.sendMessage(myTelegramID, horoscope);
+// });
 
-getWeather(function(err, weather){
-	console.log('send weather', weather);
-	bot.sendMessage(myTelegramID, weather);
-})
+// getWeather(function(err, weather){
+// 	console.log('send weather', weather);
+// 	bot.sendMessage(myTelegramID, weather);
+// })
 
-console.log('time now: ', new Date());
+setInterval(function(){
+	console.log('time now: ', new Date());	
+}, 10 * 1000)
