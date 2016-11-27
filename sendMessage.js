@@ -32,17 +32,17 @@ var todayInfo = {
 
 var instance = later.setInterval(function() {
 
-	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')').then(function(){
-		getHoroscope(function(err, horoscope){
-			console.log('send Message:', horoscope);
-			bot.sendMessage(myTelegramID, horoscope).then(function(){
-				getWeather(function(err, weather){
-					console.log('send weather', weather);
-					bot.sendMessage(myTelegramID, weather).then(function(){
-						bot.sendMessage(myTelegramID, '祝你有個美好的一天～');
-					});
-					
+	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')');
+
+	getHoroscope(function(err, horoscope){
+		console.log('send Message:', horoscope);
+		bot.sendMessage(myTelegramID, horoscope).then(function(){
+			getWeather(function(err, weather){
+				console.log('send weather', weather);
+				bot.sendMessage(myTelegramID, weather).then(function(){
+					bot.sendMessage(myTelegramID, '祝你有個美好的一天～');
 				});
+				
 			});
 		});
 	});
