@@ -22,8 +22,8 @@ console.log('app start!');
 
 // bot send message every day 8:00 morning.
 later.date.timezone("Asia/Taipei");
-// const sched = later.parse.recur().on(8).hour();
-const sched = later.parse.recur().on(5).second();
+const sched = later.parse.recur().on(8).hour();
+// const sched = later.parse.recur().on(5).second();
 const todayInfo = {
 	nowDate: moment().format('YYYY-MM-DD'),
 	dayOfWeekEng: moment().format('dddd')
