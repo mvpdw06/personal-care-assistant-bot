@@ -22,6 +22,7 @@ Base on Node.js
 - [x] Get different city weather information on work-day and weekend.
 - [x] Send Message at 08:00 everyday.
 - [x] Talk like a personal assistant.
+- [x] Arrange nested file collection.
 - [x] Using ES6 syntax.
 - [ ] Bot command to get information.
 - [ ] My assistant can talk with me.
