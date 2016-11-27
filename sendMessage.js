@@ -37,13 +37,14 @@ var instance = later.setInterval(function() {
 	getHoroscope(function(err, horoscope){
 		console.log('send Message:', horoscope);
 		bot.sendMessage(myTelegramID, horoscope);
-	}).then(function(){
-		getWeather(function(err, weather){
-			console.log('send weather', weather);
-			bot.sendMessage(myTelegramID, weather);
-		}).then(function(){
+	});
+
+	getWeather(function(err, weather){
+		console.log('send weather', weather);
+		bot.sendMessage(myTelegramID, weather).then(function(){
 			bot.sendMessage(myTelegramID, '祝你有個美好的一天～');
 		});
+		
 	});
 	
 
