@@ -1,20 +1,18 @@
-var request = require('request');
-var cheerio = require('cheerio');
-var moment = require('moment');
+const request = require('request');
+const cheerio = require('cheerio');
+const moment = require('moment');
 
-function getWeather(callback){
-    var dayOfWeek = moment().format('E');
-    
-    var url = 'http://www.cwb.gov.tw/V7/forecast/f_index.htm';
+const getWeather = (callback) => {
+    const dayOfWeek = moment().format('E');
+    const url = `http://www.cwb.gov.tw/V7/forecast/f_index.htm`;
     request(url, function(err, res, body){
-        var $ = cheerio.load(body);
+        const $ = cheerio.load(body);
 
-        var cityWeather,
+        let cityWeather,
             todayForecast;
 
         if(dayOfWeek >= 1 && dayOfWeek < 6){
             // get Taipei city weather in workday.
-            console.log('1');
             cityWeather = $('#TaipeiCityList').find('td');
 
             todayForecast = {
@@ -28,13 +26,13 @@ function getWeather(callback){
             cityWeather = $('#TaipeiList').find('td');
 
             todayForecast = {
-                cityname: $('#TaipeiList').find('td').eq(0).text(),
-                temperature: $('#TaipeiList').find('td').eq(1).text(),
-                probability: $('#TaipeiList').find('td').eq(2).text()
+                cityname: cityWeather.eq(0).text(),
+                temperature: cityWeather.eq(1).text(),
+                probability: cityWeather.eq(2).text()
             }
         }
 
-        var message = '今日' + todayForecast.cityname + '氣象預測： 溫度預測：' +  todayForecast.temperature + ', 降雨機率：' + todayForecast.probability
+        var message = `今日${ todayForecast.cityname }氣象預測： 溫度預測：${ todayForecast.temperature }, 降雨機率：${ todayForecast.probability}`;
 
         callback(err, message);
     });

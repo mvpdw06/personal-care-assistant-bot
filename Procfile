@@ -1,1 +1,1 @@
-clock: node sendMessage.js
+clock: node --harmony sendMessage.js

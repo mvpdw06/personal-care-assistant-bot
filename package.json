@@ -4,8 +4,8 @@
   "description": "base on node.js and Telegram bot.",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
-    "start": "node sendMessage.js"
+    "dev": "node --harmony index.js",
+    "start": "node --harmony sendMessage.js"
   },
   "repository": {
     "type": "git",

@@ -22,9 +22,8 @@ Base on Node.js
 - [x] Get different city weather information on work-day and weekend.
 - [x] Send Message at 08:00 everyday.
 - [x] Talk like a personal assistant.
-- [ ] Using ES6 syntax.
-- [ ] Using webpack to bundle JavaScript file.
-- [ ] Command to get information.
+- [x] Using ES6 syntax.
+- [ ] Bot command to get information.
 - [ ] My assistant can talk with me.
 - [ ] Connect language-understanding-intelligent-service(LUIS).
 - [ ] Custom personal assistant for every bot user.
@@ -74,3 +73,16 @@ Please see this [repository](https://github.com/mvpdw06/currency-bot) for detail
 
         After test on Heroku server, It can totally work!
 
+4. How can I use ES6 syntax in Node.js?
+
+    I use command to let v8 engine to know I want to use ES6 syntax.
+
+    
+
+    ```
+    $ node --harmony index.js 
+    ```  
+    
+    But please keep in your mind, v8 engine is not totally support ES6 syntax with using command.
+
+    e.g. ```import ... fomr '...'``` is not support, but arrow function ,const and let is work perfect. 
