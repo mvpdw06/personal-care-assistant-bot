@@ -1,5 +1,5 @@
-var getHoroscope = require('./getHoroscope');
-var getWeather = require('./getWeather');
+var getHoroscope = require('./src/getHoroscope');
+var getWeather = require('./src/getWeather');
 var later = require('later');
 
 getHoroscope(function(err, horoscpoe){
