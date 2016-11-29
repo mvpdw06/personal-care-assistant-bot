@@ -2,7 +2,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 const moment = require('moment');
 
-const getWeather = (callback) => {
+const getWeather = new Promise((resolve, reject) => {
     const dayOfWeek = moment().format('E');
     const url = `http://www.cwb.gov.tw/V7/forecast/f_index.htm`;
     request(url, function(err, res, body){
@@ -34,8 +34,8 @@ const getWeather = (callback) => {
 
         var message = `今日${ todayForecast.cityname }氣象預測： 溫度預測：${ todayForecast.temperature }, 降雨機率：${ todayForecast.probability}`;
 
-        callback(err, message);
+        resolve(message);
     });
-}
+});
 
 module.exports = getWeather;

@@ -23,7 +23,8 @@ console.log('app start!');
 // bot send message every day 8:00 morning.
 later.date.timezone("Asia/Taipei");
 const sched = later.parse.recur().on(8).hour();
-// const sched = later.parse.recur().on(5).second();
+// const sched = later.parse.recur().every(5).second();
+
 const todayInfo = {
 	nowDate: moment().format('YYYY-MM-DD'),
 	dayOfWeekEng: moment().format('dddd')
@@ -31,18 +32,17 @@ const todayInfo = {
 
 const instance = later.setInterval(() => {
 
-	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')');
-
-	getHoroscope((err, horoscope) => {
-		console.log('send Message:', horoscope);
-		bot.sendMessage(myTelegramID, horoscope).then(() => {
-			getWeather((err, weather) => {
-				console.log('send weather', weather);
-				bot.sendMessage(myTelegramID, weather).then(() => {
-					bot.sendMessage(myTelegramID, '祝你有個美好的一天～');
-				});
-			});
-		});
-	});
+	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')')
+	.then((response) => getHoroscope)
+	.then((horoscope) => {
+		console.log('send Horoscope: ', horoscope);
+		return bot.sendMessage(myTelegramID, horoscope);
+	})
+	.then((response) => getWeather)
+	.then((weather) => {
+		console.log('send weather: ', weather);
+		return bot.sendMessage(myTelegramID, weather);
+	})
+	.then((response) => bot.sendMessage(myTelegramID, '祝你有個美好的一天～'));
 
 }, sched);

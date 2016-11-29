@@ -2,7 +2,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 const moment = require('moment');
 
-const getHoroscope = (callback) => {
+const getHoroscope = new Promise((resolve, reject) => {
     const nowDate = moment().format('YYYY-MM-DD');
     const myAstro = '4';
     const url = `http://astro.click108.com.tw/daily_4.php?iAcDay=${ nowDate }&iAstro=${ myAstro }`;
@@ -18,9 +18,9 @@ const getHoroscope = (callback) => {
         };
 
         const message = `獅子座今日幸運數字：${ todayHoroscope.luckyNumber }, 幸運顏色： ${ todayHoroscope.luckyColor }, 總結：${ todayHoroscope.todayDescription }`;
-
-        callback(err, message);
+        
+        resolve(message);
     });
-}
+});
 
 module.exports = getHoroscope;
