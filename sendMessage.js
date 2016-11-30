@@ -23,14 +23,13 @@ console.log('app start!');
 // bot send message every day 8:00 morning.
 later.date.timezone("Asia/Taipei");
 const sched = later.parse.recur().on(8).hour();
-// const sched = later.parse.recur().every(5).second();
-
-const todayInfo = {
-	nowDate: moment().format('YYYY-MM-DD'),
-	dayOfWeekEng: moment().format('dddd')
-}
 
 const instance = later.setInterval(() => {
+	// get today info.
+	const todayInfo = {
+		nowDate: moment().format('YYYY-MM-DD'),
+		dayOfWeekEng: moment().format('dddd')
+	}
 
 	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')')
 	.then((response) => getHoroscope)
