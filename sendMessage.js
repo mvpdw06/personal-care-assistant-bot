@@ -32,12 +32,12 @@ const instance = later.setInterval(() => {
 	}
 
 	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')')
-	.then((response) => getHoroscope)
+	.then((response) => getHoroscope(moment))
 	.then((horoscope) => {
 		console.log('send Horoscope: ', horoscope);
 		return bot.sendMessage(myTelegramID, horoscope);
 	})
-	.then((response) => getWeather)
+	.then((response) => getWeather(moment))
 	.then((weather) => {
 		console.log('send weather: ', weather);
 		return bot.sendMessage(myTelegramID, weather);

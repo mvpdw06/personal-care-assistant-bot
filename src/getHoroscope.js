@@ -1,8 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
-const moment = require('moment');
 
-const getHoroscope = new Promise((resolve, reject) => {
+const getHoroscope = (moment) => new Promise((resolve, reject) => {
     const nowDate = moment().format('YYYY-MM-DD');
     const myAstro = '4';
     const url = `http://astro.click108.com.tw/daily_4.php?iAcDay=${ nowDate }&iAstro=${ myAstro }`;

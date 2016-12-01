@@ -1,8 +1,7 @@
 const request = require('request');
 const cheerio = require('cheerio');
-const moment = require('moment');
 
-const getWeather = new Promise((resolve, reject) => {
+const getWeather = (moment) => new Promise((resolve, reject) => {
     const dayOfWeek = moment().format('E');
     const url = `http://www.cwb.gov.tw/V7/forecast/f_index.htm`;
     request(url, function(err, res, body){

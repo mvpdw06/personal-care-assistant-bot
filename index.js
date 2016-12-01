@@ -1,5 +1,6 @@
 const getHoroscope = require('./src/getHoroscope');
 const getWeather = require('./src/getWeather');
+const moment = require('moment');
 
-getHoroscope.then((horoscope) => console.log(horoscope));
-getWeather.then((weather) => console.log(weather));
+getHoroscope(moment).then((horoscope) => console.log(horoscope));
+getWeather(moment).then((weather) => console.log(weather));
