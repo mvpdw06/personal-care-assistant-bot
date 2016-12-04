@@ -24,8 +24,9 @@ Base on Node.js
 - [x] Talk like a personal assistant.
 - [x] Arrange nested file collection.
 - [x] Using ES6 syntax.
-- [x] Using JavaScript Promise chain. 
-- [ ] Bot command to get information.
+- [x] Using JavaScript Promise chain.
+- [ ] Using Webpack to bundle all JavaScript files.
+- [x] Bot command to get information.
 - [ ] My assistant can talk with me.
 - [ ] Connect language-understanding-intelligent-service(LUIS).
 - [ ] Custom personal assistant for every bot user.

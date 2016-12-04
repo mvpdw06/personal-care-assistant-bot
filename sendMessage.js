@@ -53,13 +53,21 @@ const instance = later.setInterval(() => {
 // get normal response.
 bot.onText(/\/start/, function (msg) {
     let resp = `${myName} sir, what do you want?`;
-    bot.sendMessage(myTelegramID, resp);
+    bot.sendMessage(myTelegramID, resp)
+	.then((response) => {
+		console.log('get command start, response: ', resp);
+	});
 });
 
 // get now weather.
 bot.onText(/\/nowWeather/, function (msg) {
+	let resp;
 	getWeather(moment)
 	.then((weather) => {
+		resp = weather;
 		return bot.sendMessage(myTelegramID, weather);
+	})
+	.then((response) => {
+		console.log('get command nowWeather, response: ', resp);
 	});
 });
