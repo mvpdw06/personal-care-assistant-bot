@@ -10,14 +10,18 @@ const myTelegramID = process.env.myTelegramID;
 const port = process.env.PORT || 8443;
 const host = process.env.HOST;
 
-const webhook = {
+const botSettings = {
 	webHook: {
 		port: port,
-		host: host
-	}
+		host: host,
+		polling: true
+	},
+	polling: true
 }
 
-const bot = new TelegramBot(token, webhook);
+const myName = 'Ryan';
+
+const bot = new TelegramBot(token, botSettings);
 console.log('app start!');
 
 // bot send message every day 8:00 morning.
@@ -31,7 +35,7 @@ const instance = later.setInterval(() => {
 		dayOfWeekEng: moment().format('dddd')
 	}
 
-	bot.sendMessage(myTelegramID, '早安 Ryan，今天是' + todayInfo.nowDate + '(' + todayInfo.dayOfWeekEng + ')')
+	bot.sendMessage(myTelegramID, `早安 ${myName}，今天是 ${todayInfo.nowDate} (${todayInfo.dayOfWeekEng})`)
 	.then((response) => getHoroscope(moment))
 	.then((horoscope) => {
 		console.log('send Horoscope: ', horoscope);
@@ -45,3 +49,17 @@ const instance = later.setInterval(() => {
 	.then((response) => bot.sendMessage(myTelegramID, '祝你有個美好的一天～'));
 
 }, sched);
+
+// get normal response.
+bot.onText(/\/start/, function (msg) {
+    let resp = `${myName} sir, what do you want?`;
+    bot.sendMessage(myTelegramID, resp);
+});
+
+// get now weather.
+bot.onText(/\/nowWeather/, function (msg) {
+	getWeather(moment)
+	.then((weather) => {
+		return bot.sendMessage(myTelegramID, weather);
+	});
+});
