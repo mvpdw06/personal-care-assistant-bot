@@ -1,6 +1,10 @@
-const TelegramBot = require('node-telegram-bot-api');
 const getHoroscope = require('./src/getHoroscope');
 const getWeather = require('./src/getWeather');
+const cmdConstant = require('./src/cmdConstant');
+const getTaiwanApple = require('./src/getNews/getTaiwanApple');
+const getNBA = require('./src/getNews/getNBA');
+
+const TelegramBot = require('node-telegram-bot-api');
 const moment = require('moment');
 const later = require('later');
 
@@ -9,6 +13,7 @@ const token = process.env.token;
 const myTelegramID = process.env.myTelegramID;
 const port = process.env.PORT || 8443;
 const host = process.env.HOST;
+const timezone = process.env.TZ || 'Asia/Taipei';
 
 const botSettings = {
 	webHook: {
@@ -25,7 +30,7 @@ const bot = new TelegramBot(token, botSettings);
 console.log('app start!');
 
 // bot send message every day 8:00 morning.
-later.date.timezone("Asia/Taipei");
+later.date.timezone(timezone);
 const sched = later.parse.recur().on(8).hour();
 
 const instance = later.setInterval(() => {
@@ -50,8 +55,21 @@ const instance = later.setInterval(() => {
 
 }, sched);
 
+bot.onText(/\/help/, () => {
+	let resp = `
+		You can control me by sending these commands:
+		/start to say hello to you.
+		/help see what can I do for you.
+		/getWeather see weather prediction. 
+	`;
+	bot.sendMessage(myTelegramID, resp)
+	.then((response) => {
+		console.log('get command help, response: ', resp);
+	});
+})
+
 // get normal response.
-bot.onText(/\/start/, function (msg) {
+bot.onText(/\/start/, (msg) => {
     let resp = `${myName} sir, what do you want?`;
     bot.sendMessage(myTelegramID, resp)
 	.then((response) => {
@@ -60,7 +78,7 @@ bot.onText(/\/start/, function (msg) {
 });
 
 // get now weather.
-bot.onText(/\/nowWeather/, function (msg) {
+bot.onText(/\/nowWeather/, (msg) => {
 	let resp;
 	getWeather(moment)
 	.then((weather) => {
@@ -69,5 +87,29 @@ bot.onText(/\/nowWeather/, function (msg) {
 	})
 	.then((response) => {
 		console.log('get command nowWeather, response: ', resp);
+	});
+});
+
+// bot.onText(/\/getTaiwanApple/, (msg) => {
+// 	let resp;
+// 	getTaiwanApple()
+// 	.then((topic) => {
+// 		resp = topic;
+// 		return bot.sendMessage(myTelegramID, resp);
+// 	})
+// 	.then((response) => {
+// 		console.log('get command getTaiwanApple, response: ', resp);
+// 	});
+// });
+
+bot.onText(/\/getNBA/, (msg) => {
+	let resp;
+	getNBA()
+	.then((topic) => {
+		resp = topic;
+		return bot.sendMessage(myTelegramID, resp);
+	})
+	.then((response) => {
+		console.log('get command getNBA, response: ', resp);
 	});
 });
