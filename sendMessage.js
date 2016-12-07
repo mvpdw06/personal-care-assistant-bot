@@ -1,8 +1,7 @@
 const getHoroscope = require('./src/getHoroscope');
 const getWeather = require('./src/getWeather');
 const cmdConstant = require('./src/cmdConstant');
-const getTaiwanApple = require('./src/getNews/getTaiwanApple');
-const getNBA = require('./src/getNews/getNBA');
+const getAppleDaily = require('./src/getNews/getAppleDaily');
 
 const TelegramBot = require('node-telegram-bot-api');
 const moment = require('moment');
@@ -90,26 +89,14 @@ bot.onText(/\/nowWeather/, (msg) => {
 	});
 });
 
-// bot.onText(/\/getTaiwanApple/, (msg) => {
-// 	let resp;
-// 	getTaiwanApple()
-// 	.then((topic) => {
-// 		resp = topic;
-// 		return bot.sendMessage(myTelegramID, resp);
-// 	})
-// 	.then((response) => {
-// 		console.log('get command getTaiwanApple, response: ', resp);
-// 	});
-// });
-
-bot.onText(/\/getNBA/, (msg) => {
+bot.onText(/\/getAppleDaily/, (msg) => {
 	let resp;
-	getNBA()
+	getAppleDaily()
 	.then((topic) => {
 		resp = topic;
 		return bot.sendMessage(myTelegramID, resp);
 	})
 	.then((response) => {
-		console.log('get command getNBA, response: ', resp);
+		console.log('get command getAppleDaily, response: ', resp);
 	});
 });
