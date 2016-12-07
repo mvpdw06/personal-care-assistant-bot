@@ -8,21 +8,21 @@ const getNBA = () => new Promise((resolve, reject) => {
 
         const topNews = $('.content_list--item_wrapper').eq(0);
 
-        // const topics = [];
+        const topics = [];
 
-        // topNews.find('a').map((topic) => {
-        //     topics.push({
-        //         topic: topic.text(),
-        //         link: topic.attr('href')
-        //     });
-        // });
+        topNews.find('a').map((topic) => {
+            topics.push({
+                topic: topic.text(),
+                link: topic.attr('href')
+            });
+        });
 
         const result = {
             topicCount: topNews.find('a').length,
-        	topics: topNews.find('a').eq(0).text()
+        	topics: `[${topics[0].topic}](${topics[0].link})`
         };
 
-        const message = `NBA 頭條：${ result.topics }`;
+        const message = `NBA ${ result.topicCount } topics： \n ${ result.topics }`;
         
         resolve(message);
     });
