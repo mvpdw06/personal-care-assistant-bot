@@ -6,16 +6,13 @@ const getNBA = () => new Promise((resolve, reject) => {
     request(url, (err, res, body) => {
         const $ = cheerio.load(body);
 
-        const topNews = $('.content_list--item_wrapper').eq(0);
+        const topNews = $('.content_list--item_wrapper').eq(0).find('a');
 
-        const topics = [];
+        const topics = [{
+            topic: topNews.eq(0).text(),
+            link: topNews.eq(0).attr('href')
+        }];
 
-        topNews.find('a').map((topic) => {
-            topics.push({
-                topic: topic.text(),
-                link: topic.attr('href')
-            });
-        });
 
         const result = {
             topicCount: topNews.find('a').length,
